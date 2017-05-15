@@ -1,0 +1,18 @@
+﻿@model GeoQuiz.Models.Question
+
+@{
+    ViewBag.Title = "Incorrect";
+}
+
+<h1>Sorry!</h1>
+<h2>Let's see if you can get the next one.</h2>
+
+<script type="text/javascript">
+
+function Redirect()
+{
+window.location="Play";
+}
+document.write("Redirecting...");
+setTimeout('Redirect()', 5000);
+</script>

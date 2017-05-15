@@ -1,0 +1,40 @@
+﻿@model GeoQuiz.Models.Question
+
+@{
+    ViewBag.Title = "Play";
+}
+
+<h2 class="text-center">Which city is it?</h2>
+
+<div class="row">
+    <div class="col-md-4 text-center">
+        <img src="~/Files?id=@Model.Files.First(f => f.FileType == GeoQuiz.Models.FileType.Selfie).FileId"
+             alt="No image available" />
+    </div>
+
+    @using (Html.BeginForm("Play", "Questions"))
+    {
+        @Html.AntiForgeryToken()
+
+        string[] answerChoices = { Model.CorrectAnswer, Model.Incorrect1, Model.Incorrect2, Model.Incorrect3 };
+        GeoQuiz.Methods.ShuffleList.Shuffle(answerChoices);
+
+        <div class="col-md-4 text-center">
+            <br />
+            <dl>
+
+                @foreach (var answer in answerChoices)
+                {
+                    <dd>
+                        @Html.RadioButtonFor(a => answer, answer) @answer.ToString()
+                    </dd>
+                }
+            </dl>
+            <div class="form-group text-center">
+                <input type="submit" value="Final Answer" class="btn btn-success btn-lg" />
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.CorrectAnswer)
+    }
+       
+</div>

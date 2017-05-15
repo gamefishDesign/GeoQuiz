@@ -1,0 +1,59 @@
+﻿@model GeoQuiz.Models.Question
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Question Review</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/File?id=@Model.Files.First(f => f.FileType == GeoQuiz.Models.FileType.Selfie).FileId" alt="Fail!" />
+    </div>
+    <div class="col-md-4">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CorrectAnswer)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CorrectAnswer)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Incorrect1)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Incorrect1)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Incorrect2)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Incorrect2)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Incorrect3)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Incorrect3)
+            </dd>
+        </dl>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p class="text-center">
+        <div class="form-actions no-color">
+            <input type="submit" value="Cancel" class="btn btn-default" /> |
+       
+            <input type="submit" value="Submit" UseSubmitBehavior="false" class="btn btn-default" /> |
+        </div>
+    </p>
+}
