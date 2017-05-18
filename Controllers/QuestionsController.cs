@@ -31,7 +31,7 @@ namespace GeoQuiz.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Include(q => q.Files).SingleOrDefault(q => q.QuestionId == id);
+            Question question = db.Questions.SingleOrDefault(q => q.QuestionId == id);
             if (question == null)
             {
                 return HttpNotFound();
