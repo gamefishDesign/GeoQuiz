@@ -56,7 +56,13 @@ namespace GeoQuiz.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (upload != null && upload.ContentLength > 0)
+                     if (upload.ContentType.ToLower() == "image/jpg" ||
+                   upload.ContentType.ToLower() == "image/jpeg" ||
+                   upload.ContentType.ToLower() == "image/pjpeg" ||
+                   upload.ContentType.ToLower() == "image/gif" ||
+                   upload.ContentType.ToLower() == "image/x-png" ||
+                   upload.ContentType.ToLower() == "image/png" &&
+                   upload != null && upload.ContentLength > 0)
                     {
                         var selfie = new File
                         {
@@ -84,30 +90,13 @@ namespace GeoQuiz.Controllers
             return View(question);
         }
 
-        //// GET
-        //[AllowAnonymous]
-        //public ActionResult Play(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Question question = db.Questions.Include(q => q.Files).SingleOrDefault(q => q.QuestionId == id);
-        //    if (question == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(question);
-        //}
-
         // GET
         [AllowAnonymous]
         public ActionResult Play()
         {
             List<Question> questions = new List<Question>(db.Questions);
             Methods.ShuffleList.ShuffleQuestions(questions);
-            int id = questions[0].QuestionId;
-            Question question = db.Questions.Include(q => q.Files).SingleOrDefault(q => q.QuestionId == id);
+            Question question = questions[0]; 
             if (question == null)
             {
                 return HttpNotFound();
@@ -204,7 +193,7 @@ namespace GeoQuiz.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Include(q => q.Files).SingleOrDefault(q => q.QuestionId == id);
+            Question question = db.Questions.SingleOrDefault(q => q.QuestionId == id);
             if (question == null)
             {
                 return HttpNotFound();
